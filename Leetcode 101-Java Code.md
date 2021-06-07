@@ -13,17 +13,16 @@
 }
 </code></pre>
 <h4 id="non-overlapping-intervals">435. Non-overlapping Intervals</h4>
-<pre><code>public int eraseOverlapIntervals(int[][] intervals) {
+<pre><code>    public int eraseOverlapIntervals(int[][] intervals) {
     if(intervals.length == 0) return 0;
-    
-    Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
+    Arrays.sort(intervals, (a, b) -&amp;gt; a[1] - b[1]);
     for(int[] i : intervals){
         System.out.println(i[0] + " " + i[1]);
     }
     int removed = 0, prev = intervals[0][1];
-    for(int i = 1; i &lt; intervals.length; i++){
-        if(intervals[i][0] &lt; prev){
-            removed++;
+    for(int i = 1; i &amp;lt; intervals.length; i++){
+        if(intervals[i][0] &amp;lt; prev){
+        removed++;
         }
         else{
             prev = intervals[i][1];
