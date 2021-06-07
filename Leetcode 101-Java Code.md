@@ -37,6 +37,7 @@
         return removed;
     }
 </code></pre>
+<h4 id="section">–</h4>
 <h2 id="第三章----玩转双指针">第三章 – 玩转双指针</h2>
 <h4 id="two-sum-ii---input-array-is-sorted">167. Two Sum II - Input array is sorted</h4>
 <pre><code>public int[] twoSum(int[] numbers, int target) {
