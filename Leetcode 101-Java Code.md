@@ -79,22 +79,22 @@
 }
 </code></pre>
 <h4 id="linked-list-cycle-ii">142. Linked List Cycle II</h4>
-<pre><code>    public ListNode detectCycle(ListNode head) {
-       ListNode slow = head;
-       ListNode fast = head;
-       do{
-           if(fast == null || fast.next == null) return null;
-           fast = fast.next.next;
-           slow = slow.next;
-       } while(fast != slow);
-       
-       fast = head;
-       while(fast != slow){
-           slow = slow.next;
-           fast = fast.next;
-       }
-       return fast;
-   }
+<pre><code>public ListNode detectCycle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    do{
+        if(fast == null || fast.next == null) return null;
+        fast = fast.next.next;
+        slow = slow.next;
+    } while(fast != slow);
+    
+    fast = head;
+    while(fast != slow){
+        slow = slow.next;
+        fast = fast.next;
+    }
+    return fast;
+    }
 </code></pre>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
 <pre><code>  public String minWindow(String s, String t) {
@@ -134,7 +134,7 @@
     }
     //substring() returns the substring from start index to end index
     return min_size &gt; s.length() ? "" : s.substring(min_l, min_l + min_size);
-}
+    }
 </code></pre>
 <h2 id="第四章----居合斩！二分查找">第四章 – 居合斩！二分查找</h2>
 <h4 id="sqrtx">69. Sqrt(x)</h4>
