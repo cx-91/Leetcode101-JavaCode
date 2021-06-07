@@ -6,38 +6,37 @@
 <h1 id="leetcode-101">Leetcode 101</h1>
 <h2 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h2>
 <h4 id="assign-cookies">455. Assign Cookies</h4>
-<pre><code>    public int findContentChildren(int[] g, int[] s) {
-        Arrays.sort(g);
-        Arrays.sort(s);
-        int j = 0, i = 0;
-        while(j &lt; s.length &amp;&amp; i &lt; g.length){
-            if(s[j] &gt;= g[i]) i++;
-            j++;
-        }
-        return i;
+<pre><code>public int findContentChildren(int[] g, int[] s) {
+    Arrays.sort(g);
+    Arrays.sort(s);
+    int j = 0, i = 0;
+    while(j &lt; s.length &amp;&amp; i &lt; g.length){
+        if(s[j] &gt;= g[i]) i++;
+        j++;
     }
+    return i;
+}
 </code></pre>
 <h4 id="non-overlapping-intervals">435. Non-overlapping Intervals</h4>
-<pre><code>    public int eraseOverlapIntervals(int[][] intervals) {
-        if(intervals.length == 0) return 0;
-        
-        Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
-        for(int[] i : intervals){
-            System.out.println(i[0] + " " + i[1]);
-        }
-        int removed = 0, prev = intervals[0][1];
-        for(int i = 1; i &lt; intervals.length; i++){
-            if(intervals[i][0] &lt; prev){
-                removed++;
-            }
-            else{
-                prev = intervals[i][1];
-            }
-        }
-        return removed;
+<pre><code>public int eraseOverlapIntervals(int[][] intervals) {
+    if(intervals.length == 0) return 0;
+    
+    Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
+    for(int[] i : intervals){
+        System.out.println(i[0] + " " + i[1]);
     }
+    int removed = 0, prev = intervals[0][1];
+    for(int i = 1; i &lt; intervals.length; i++){
+        if(intervals[i][0] &lt; prev){
+            removed++;
+        }
+        else{
+            prev = intervals[i][1];
+        }
+    }
+    return removed;
+}
 </code></pre>
-<h4 id="section">–</h4>
 <h2 id="第三章----玩转双指针">第三章 – 玩转双指针</h2>
 <h4 id="two-sum-ii---input-array-is-sorted">167. Two Sum II - Input array is sorted</h4>
 <pre><code>public int[] twoSum(int[] numbers, int target) {
