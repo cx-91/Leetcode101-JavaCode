@@ -93,7 +93,6 @@
         slow = slow.next;
         fast = fast.next;
     }
-    return fast;
 }
 </code></pre>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
