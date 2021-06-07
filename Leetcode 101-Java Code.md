@@ -79,10 +79,10 @@
 }
 </code></pre>
 <h4 id="linked-list-cycle-ii">142. Linked List Cycle II</h4>
-<pre><code> public ListNode detectCycle(ListNode head) {
+<pre><code>public ListNode detectCycle(ListNode head) {
     ListNode slow = head;
     ListNode fast = head;
-  
+    
     do{
         if(fast == null || fast.next == null) return null;
         fast = fast.next.next;
