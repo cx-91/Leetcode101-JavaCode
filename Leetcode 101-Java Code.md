@@ -79,22 +79,22 @@
 }
 </code></pre>
 <h4 id="linked-list-cycle-ii">142. Linked List Cycle II</h4>
-<pre><code>public ListNode detectCycle(ListNode head) {
-    ListNode slow = head;
-    ListNode fast = head;
-    do{
-        if(fast == null || fast.next == null) return null;
-        fast = fast.next.next;
-        slow = slow.next;
-    } while(fast != slow);
-    
-    fast = head;
-    while(fast != slow){
-        slow = slow.next;
-        fast = fast.next;
-    }
-    return fast;
-}
+<pre><code>    public ListNode detectCycle(ListNode head) {
+       ListNode slow = head;
+       ListNode fast = head;
+       do{
+           if(fast == null || fast.next == null) return null;
+           fast = fast.next.next;
+           slow = slow.next;
+       } while(fast != slow);
+       
+       fast = head;
+       while(fast != slow){
+           slow = slow.next;
+           fast = fast.next;
+       }
+       return fast;
+   }
 </code></pre>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
 <pre><code>  public String minWindow(String s, String t) {
