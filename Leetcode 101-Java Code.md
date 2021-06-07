@@ -79,7 +79,7 @@
 }
 </code></pre>
 <h4 id="linked-list-cycle-ii">142. Linked List Cycle II</h4>
-<pre><code>public ListNode detectCycle(ListNode head){
+<pre><code>public ListNode detectCycle(ListNode head) {
     ListNode slow = head;
     ListNode fast = head;
     do{
@@ -97,7 +97,7 @@
 }
 </code></pre>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
-<pre><code>  public String minWindow(String s, String t) {
+<pre><code>public String minWindow(String s, String t) {
     int[] chars = new int[128];
     boolean[] flag = new boolean[128];
     
