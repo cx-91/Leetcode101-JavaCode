@@ -6,7 +6,7 @@
 <h1 id="leetcode-101">Leetcode 101</h1>
 <h2 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h2>
 <h4 id="assign-cookies">455. Assign Cookies</h4>
-<pre><code>	public int findContentChildren(int[] g, int[] s) {
+<pre><code>    public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
         int j = 0, i = 0;
