@@ -82,7 +82,6 @@
 <pre><code>public ListNode detectCycle(ListNode head) {
     ListNode slow = head;
     ListNode fast = head;
-    
     do{
         if(fast == null || fast.next == null) return null;
         fast = fast.next.next;
