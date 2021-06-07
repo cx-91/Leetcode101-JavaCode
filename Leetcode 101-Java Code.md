@@ -94,8 +94,8 @@
         fast = fast.next;
     }
     return fast;
-}
 </code></pre>
+<p>}</p>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
 <pre><code>  public String minWindow(String s, String t) {
     int[] chars = new int[128];
