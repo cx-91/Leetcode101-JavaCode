@@ -1,4 +1,15 @@
-<h1 id="leetcode-101">Leetcode 101</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leetcode 101-Java Code</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="leetcode-101">Leetcode 101</h1>
 <h2 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h2>
 <h4 id="assign-cookies">455. Assign Cookies</h4>
 <pre><code>public int findContentChildren(int[] g, int[] s) {
@@ -93,8 +104,8 @@
         slow = slow.next;
         fast = fast.next;
     }
-    return fast;
-    }
+	return fast;
+}
 </code></pre>
 <h4 id="minimum-window-substring">76. Minimum Window Substring</h4>
 <pre><code>public String minWindow(String s, String t) {
@@ -710,4 +721,7 @@ private void backtracking(List&lt;List&lt;String&gt;&gt; ans,  char[][] board, b
     }
 }
 </code></pre>
+</div>
+</body>
 
+</html>
