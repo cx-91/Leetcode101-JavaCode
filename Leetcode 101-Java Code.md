@@ -4,7 +4,7 @@
 ---
 
 <h1 id="leetcode-101">Leetcode 101</h1>
-<h4 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h4>
+<h2 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h2>
 <h4 id="assign-cookies">455. Assign Cookies</h4>
 <pre><code>public int findContentChildren(int[] g, int[] s) {
     Arrays.sort(g);
@@ -37,7 +37,7 @@
     return removed;
 }
 </code></pre>
-<h3 id="第三章----玩转双指针">第三章 – 玩转双指针</h3>
+<h2 id="第三章----玩转双指针">第三章 – 玩转双指针</h2>
 <h4 id="two-sum-ii---input-array-is-sorted">167. Two Sum II - Input array is sorted</h4>
 <pre><code>public int[] twoSum(int[] numbers, int target) {
     int l = 0, r = numbers.length - 1, sum;
@@ -143,7 +143,7 @@
     return min_size &gt; s.length() ? "" : s.substring(min_l, min_l + min_size);
 }
 </code></pre>
-<h3 id="第四章----居合斩！二分查找">第四章 – 居合斩！二分查找</h3>
+<h2 id="第四章----居合斩！二分查找">第四章 – 居合斩！二分查找</h2>
 <h4 id="sqrtx">69. Sqrt(x)</h4>
 <pre><code>public int mySqrt(int x) {
     if(x == 0) return x;
