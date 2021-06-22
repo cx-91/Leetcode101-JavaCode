@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html>
+---
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leetcode 101-Java Code</title>
-  <link rel="stylesheet" href="https://stackedit.io/style.css" />
-</head>
 
-<body class="stackedit">
-  <div class="stackedit__html"><h1 id="leetcode-101">Leetcode 101</h1>
+---
+
+<h1 id="leetcode-101">Leetcode 101</h1>
 <h2 id="第二章----最易懂的贪心算法">第二章 – 最易懂的贪心算法</h2>
 <h4 id="assign-cookies">455. Assign Cookies</h4>
 <pre><code>public int findContentChildren(int[] g, int[] s) {
@@ -1258,7 +1252,4 @@ private TreeNode buildTreeHelper(Map&lt;Integer, Integer&gt; hash, int[] preorde
     return node;
 }
 </code></pre>
-</div>
-</body>
 
-</html>
