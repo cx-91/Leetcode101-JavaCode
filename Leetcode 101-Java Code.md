@@ -1,9 +1,10 @@
-# Leetcode 101
+﻿# Leetcode 101
 
-## 第二章 -- 最易懂的贪心算法
+#### 第二章 -- 最易懂的贪心算法
 
 #### 455. Assign Cookies
-	public int findContentChildren(int[] g, int[] s) {
+
+    public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
         int j = 0, i = 0;
@@ -13,17 +14,20 @@
         }
         return i;
     }
+
 #### 435. Non-overlapping Intervals
-	public int eraseOverlapIntervals(int[][] intervals) {
+
+    public int eraseOverlapIntervals(int[][] intervals) {
         if(intervals.length == 0) return 0;
-        Arrays.sort(intervals, (a, b) -&gt; a[1] - b[1]);
+        
+        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
         for(int[] i : intervals){
             System.out.println(i[0] + " " + i[1]);
         }
         int removed = 0, prev = intervals[0][1];
-        for(int i = 1; i &lt; intervals.length; i++){
-            if(intervals[i][0] &lt; prev){
-            removed++;
+        for(int i = 1; i < intervals.length; i++){
+            if(intervals[i][0] < prev){
+                removed++;
             }
             else{
                 prev = intervals[i][1];
@@ -32,7 +36,9 @@
         return removed;
     }
 
-## 第三章 -- 玩转双指针
+
+
+### 第三章 -- 玩转双指针
 #### 167. Two Sum II - Input array is sorted
     public int[] twoSum(int[] numbers, int target) {
         int l = 0, r = numbers.length - 1, sum;
@@ -81,11 +87,11 @@
         merge(nums1, m, nums2, n);
     }
  
-#### 142. Linked List Cycle II
-
-    public ListNode detectCycle(ListNode head) {
+ #### 142. Linked List Cycle II
+     public ListNode detectCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
+      
         do{
             if(fast == null || fast.next == null) return null;
             fast = fast.next.next;
@@ -97,11 +103,11 @@
             slow = slow.next;
             fast = fast.next;
         }
-		return fast;
-	}
-#### 76. Minimum Window Substring
-
-    public String minWindow(String s, String t) {
+        return fast;
+    }
+  
+  #### 76. Minimum Window Substring
+      public String minWindow(String s, String t) {
         int[] chars = new int[128];
         boolean[] flag = new boolean[128];
         
@@ -138,9 +144,9 @@
         }
         //substring() returns the substring from start index to end index
         return min_size > s.length() ? "" : s.substring(min_l, min_l + min_size);
-        }
+    }
 
-## 第四章 -- 居合斩！二分查找
+### 第四章 -- 居合斩！二分查找
 #### 69. Sqrt(x)
   
     public int mySqrt(int x) {
@@ -736,16 +742,566 @@
         }
     }
 
+#### 934. Shortest Bridge
+    private int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    public int shortestBridge(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int bridge_distance = 0;
+        
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[m][n];
+        boolean first_island_found = false;
+        
+        // Find the land coverage of 1st island using DFS
+        for(int i = 0; i < m; i++)
+        {
+            if(first_island_found) break;
+            for(int j = 0; j < n; j++)
+            {
+                if(grid[i][j] == 1)
+                {
+                    find_first_land(grid, i, j, m, n, queue, visited);
+                    first_island_found = true;
+                    break;
+                }
+            }
+        }
+        
+        // Find the shortest distance to build bridge between 1st bridge and 2nd bridge using BFS
+        while(!queue.isEmpty())
+        {
+            int size = queue.size();
+            
+            while(size > 0)
+            {
+                int[] popped = queue.remove();
+                
+                for(int[] direction : directions)
+                {
+                    int x = popped[0] + direction[0];
+                    int y = popped[1] + direction[1];
+                    
+                    if(x > -1 && y > -1 && x < m && y < n && !visited[x][y])
+                    {
+                        if(grid[x][y] == 1)
+                        {
+                            return bridge_distance;
+                        }
+                        
+                        queue.add(new int[] {x, y});
+                        visited[x][y] = true;
+                    }
+                }
+                size--;
+            }
+            bridge_distance++;
+        }
+        return -1;
+    }
+    
+    public void find_first_land(int[][] grid, int i, int j, int m, int n, Queue<int[]> queue, boolean[][] visited)
+    {
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0 || visited[i][j]) return;
+        
+        queue.add(new int[] {i, j});
+        visited[i][j] = true;
+        
+        find_first_land(grid, i-1, j, m, n, queue, visited);
+        find_first_land(grid, i+1, j, m, n, queue, visited);
+        find_first_land(grid, i, j-1, m, n, queue, visited);
+        find_first_land(grid, i, j+1, m, n, queue, visited);
+    }
 
 
+## 第七章 -- 深入浅出的动态规划
+
+#### 70. Climbing Stairs
+用dp
+
+    public int climbStairs(int n) {
+        if(n <= 2) return n;
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for(int i = 2; i <= n; i++){
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+
+不用dp
+
+    public int climbStairs(int n) {
+        if(n < 3) return n;
+        int pre2 = 1, pre1 = 2, cur = 0;
+        for(int i = 2; i < n; i++){
+            cur = pre1 + pre2;
+            pre2 = pre1;
+            pre1 = cur;
+        }
+        return cur;
+    }
+
+#### 198. House Robber
+
+        if(nums.length == 0) return 0;
+        int n = nums.length;
+        int[] dp = new int[n + 1];
+        dp[1] = nums[0];
+        for(int i = 2; i <= n; i++){
+            dp[i] = Math.max(dp[i - 1], nums[i - 1] + dp[i - 2]);
+        }
+        return dp[n];
+    }
+
+还是不用dp的方法
+
+    public int rob(int[] nums) {
+        if(nums.length == 0) return 0;
+        int n = nums.length;
+        if(n == 1) return nums[0];
+        int pre2 = 0, pre1 = 0, cur = 0;
+        for(int i = 0; i < n; i++){
+            cur = Math.max(pre2 + nums[i], pre1);
+            pre2 = pre1;
+            pre1 = cur;
+        }
+        return cur;
+    }
+
+#### 413. Arithmetic Slices
+
+    public int numberOfArithmeticSlices(int[] nums) {
+        if(nums.length < 3) return 0;
+        int[] dp = new  int[nums.length];
+        for(int i = 2; i < nums.length; i++){
+            if(nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]){
+                dp[i] = dp[i - 1] + 1;
+            }
+        }
+        
+        int result = 0;
+        for(int i = 0; i < dp.length; i++){
+            result += dp[i];
+        }
+        return result;
+    }
+
+#### 64. Minimum Path Sum
+
+    public int minPathSum(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int[][] dp = new int[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(i == 0 && j == 0){
+                    dp[i][j] = grid[i][j];
+                } else if(i == 0){
+                    dp[i][j] = dp[i][j - 1] + grid[i][j];
+                } else if(j == 0){
+                    dp[i][j] = dp[i - 1][j] + grid[i][j];
+                } else{
+                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+                }
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+#### 542. 01 Matrix
+
+    public int[][] updateMatrix(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int[][] dp = new int[n][m];
+        
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                dp[i][j] = Integer.MAX_VALUE - 1;
+            }
+        }
+        
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(mat[i][j] == 0){
+                    dp[i][j] = 0;
+                }
+                else{
+                    if(j > 0){
+                        dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + 1);
+                    }
+                    if(i > 0){
+                        dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + 1);
+                    }
+                }
+            }
+        }
+        
+        for(int i = n - 1; i >= 0; i--){
+            for(int j = m - 1; j >= 0; j--){
+                if(mat[i][j] != 0){
+                    if(j < m - 1){
+                        dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1);
+                    }
+                    if(i < n - 1){
+                        dp[i][j] = Math.min(dp[i][j], dp[i + 1][j] + 1);
+                    }
+                }
+            }
+        }
+        return dp;
+    }
+
+#### 221. Maximal Square
+
+    public int maximalSquare(char[][] matrix) {
+        int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+        int[][] dp = new int[rows + 1][cols + 1];
+        int maxsqlen = 0;
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= cols; j++) {
+                if (matrix[i-1][j-1] == '1'){
+                    dp[i][j] = Math.min(Math.min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]) + 1;
+                    maxsqlen = Math.max(maxsqlen, dp[i][j]);
+                }
+            }
+        }
+        return maxsqlen * maxsqlen;
+    }
+
+#### 279. Perfect Squares
+
+    public int numSquares(int n) {
+        int[] memo = new int[n + 1];
+    
+        memo[0] = 0;
+        for(int i = 1; i <= n; i++){
+            memo[i] = Integer.MAX_VALUE;
+            for(int j = 1; j * j <= i; j++){
+                memo[i] = Math.min(memo[i], memo[i - j * j] + 1);
+            }
+        }
+        return memo[n];
+    }
 
 
+## 第十三章 -- 指针三剑客之一： 链表
 
+#### 206. Reverse Linked List
 
+    public ListNode reverseList(ListNode head) {
+        return reverseList(head, null);
+    }
+    private ListNode reverseList(ListNode head, ListNode prev){
+        if(head == null) return prev;
+        ListNode next = head.next;
+        head.next = prev;
+        return reverseList(next, head);
+    }
+    
+不用递归
 
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null, next;
+        while(head != null){
+            next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
 
+#### 21. Merge Two Sorted Lists
 
+递归
 
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l2 == null) return l1;
+        if(l1 == null) return l2;
+        if(l1.val > l2.val){
+            l2.next = mergeTwoLists(l1, l2.next);
+            return l2;
+        }
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    }
 
+非递归
 
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0), node = dummy;
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+               node.next = l1;
+                l1 = l1.next; 
+            }
+            else{
+                node.next = l2;
+                l2 = l2.next;
+            }
+            node = node.next;
+        }
+                
+        if(l1 == null && l2 != null) node.next = l2;
+        else node.next = l1;
+        return dummy.next;
+    }
+
+#### 24. Swap Nodes in Pairs
+
+    public ListNode swapPairs(ListNode head) {
+        ListNode p = head, s;
+        if(p != null && p.next != null){
+            s = p.next;
+            p.next = s.next;
+            s.next = p;
+            head = s;
+            while(p.next != null && p.next.next != null){
+                s = p.next.next;
+                p.next.next = s.next;
+                s.next = p.next;
+                p.next = s;
+                p = s.next;
+            }
+        }
+        return head;
+    }
+
+简单点的写法
+
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        head = dummy;
+        while(head.next != null && head.next.next != null){
+            ListNode n1 = head.next;
+            ListNode n2 = head.next.next;
+            n1.next = n2.next;
+            n2.next = n1;
+            //head always hold one node before the first and the second node
+            head.next = n2;
+            head = n1;
+        }
+        return dummy.next;
+    }
+
+#### 160. Intersection of Two Linked Lists
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode l1 = headA, l2 = headB;
+        while(l1 != l2){
+            if(l1 == null) l1 = headB;
+            else l1 = l1.next;
+            if(l2 == null) l2 = headA;
+            else l2 = l2.next;
+        }
+        return l1;
+    }
+
+#### 234. Palindrome Linked List
+
+    public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null) return true;
+        ListNode slow = head, fast = head;
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        slow.next = reverseList(slow.next);
+        slow = slow.next;
+        while(slow != null){
+            if(head.val != slow.val) return false;
+            head = head.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+    
+    private ListNode reverseList(ListNode head){
+        ListNode prev = null, next;
+        while(head != null){
+            next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+
+## 第十四章 -- 指针三剑客之一： 树
+
+#### 104. Maximum Depth of Binary Tree
+    public int maxDepth(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+
+#### 110. Balanced Binary Tree
+    public boolean isBalanced(TreeNode root) {
+        if(backtrack(root) != -1){
+            return true;
+        }
+        return false;
+    }
+    
+    private int backtrack(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        
+        int left = backtrack(root.left);
+        int right = backtrack(root.right);
+        
+        if(left == -1 || right == -1 || Math.abs(right - left) > 1){
+            return -1;
+        }
+        return 1 + Math.max(left, right);
+    }
+
+#### 543. Diameter of Binary Tree
+    int diameter = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        backtrack(root);
+        return diameter;
+    }
+    
+    private int backtrack(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        
+        int l = backtrack(root.left);
+        int r = backtrack(root.right);
+        
+        diameter = Math.max(diameter, l + r);
+        
+        return Math.max(l, r) + 1;
+    }
+
+#### 437. Path Sum III
+
+    int diameter = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        backtrack(root);
+        return diameter;
+    }
+    
+    private int backtrack(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        
+        int l = backtrack(root.left);
+        int r = backtrack(root.right);
+        
+        diameter = Math.max(diameter, l + r);
+        
+        return Math.max(l, r) + 1;
+    }
+
+#### 101. Symmetric Tree
+
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null){
+            return false;
+        }
+        
+        return isSymmetric(root.left, root.right);
+    }
+    
+    private boolean isSymmetric(TreeNode left, TreeNode right){
+        if(left == null && right == null){
+            return true;
+        }
+        if(left == null || right == null){
+            return false;
+        }
+        if(left.val != right.val){
+            return false;
+        }
+        return isSymmetric(left.right, right.left) &&
+               isSymmetric(left.left, right.right);
+    }
+
+#### 1110. Delete Nodes And Return Forest
+
+    List<TreeNode> result = new LinkedList<>();
+    Set<Integer> delete = new HashSet<>();
+    public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        for(int i : to_delete) delete.add(i);
+        
+        root = helper(root);
+        if(root != null){
+            result.add(root);
+        }
+        return result;
+    }
+    private TreeNode helper(TreeNode root){
+        if(root == null){
+            return root;
+        }
+        
+        root.left = helper(root.left);
+        root.right = helper(root.right);
+        if(delete.contains(root.val)){
+            if(root.left != null) result.add(root.left);
+            if(root.right != null) result.add(root.right);
+            root = null;
+        }
+        return root;
+    }
+
+#### 637. Average of Levels in Binary Tree
+
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> result = new LinkedList<>();
+        if(root == null){
+            return result;
+        }
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()){
+            int level = q.size();
+            double sum = 0;
+            for(int i = 0; i < level; i++){
+                TreeNode node = q.poll();
+                sum += node.val;
+                
+                if(node.left != null){
+                    q.add(node.left);
+                }                
+                if(node.right != null){
+                    q.add(node.right);
+                }
+            }
+            
+            result.add(sum / level);
+        }
+        return result;
+    }
+
+#### 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if(preorder.length == 0) return null;
+        
+        Map<Integer, Integer> hash = new HashMap<>();
+        for(int i = 0; i < preorder.length; i++){
+            hash.put(inorder[i], i);
+        }
+        return buildTreeHelper(hash, preorder, 0, preorder.length - 1, 0);
+    }
+    private TreeNode buildTreeHelper(Map<Integer, Integer> hash, int[] preorder, int s0, int e0, int s1){
+        if(s0 > e0) return null;
+        int mid = preorder[s1], index = hash.get(mid), leftLen = index - s0 - 1;
+        TreeNode node = new TreeNode(mid);
+        node.left = buildTreeHelper(hash, preorder, s0, index - 1, s1 + 1);
+        node.right = buildTreeHelper(hash, preorder, index + 1, e0, s1 + 2 + leftLen);
+        return node;
+    }
 
